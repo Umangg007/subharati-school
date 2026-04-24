@@ -29,7 +29,7 @@ const SettingsView = ({ pageVariants }) => {
   };
 
   return (
-    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit" style={{ display: 'flex', flexDirection: 'column', gap: '2rem', maxWidth: '800px' }}>
+    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit" className="settings-container">
       <div>
         <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#1e293b', margin: 0 }}>System Settings</h2>
         <p style={{ color: '#64748b', margin: '4px 0 0 0' }}>Manage your account and school preferences</p>
@@ -37,12 +37,12 @@ const SettingsView = ({ pageVariants }) => {
 
       {/* Security Section */}
       <div style={{ background: 'white', borderRadius: '1rem', boxShadow: '0 4px 6px -1px rgba(0,0,0,.08)', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid #f1f5f9', background: '#f8fafc', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div className="settings-section-header">
           <FaLock style={{ color: '#ef4444' }} />
           <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>Security & Password</h3>
         </div>
 
-        <form onSubmit={handlePassChange} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <form onSubmit={handlePassChange} className="settings-form">
           {status.msg && (
             <div style={{
               padding: '0.75rem 1rem',
@@ -117,12 +117,12 @@ const SettingsView = ({ pageVariants }) => {
 
       {/* School Info Section (Read Only for now) */}
       <div style={{ background: 'white', borderRadius: '1rem', boxShadow: '0 4px 6px -1px rgba(0,0,0,.08)', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
-        <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid #f1f5f9', background: '#f8fafc', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div className="settings-section-header">
           <FaSchool style={{ color: '#3b82f6' }} />
           <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>School Identity</h3>
         </div>
-        <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
+        <div className="settings-form">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
               <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase' }}>School Name</span>
               <span style={{ fontSize: '0.9rem', color: '#1e293b', fontWeight: 500 }}>Subharati Pre-Primary School</span>

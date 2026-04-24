@@ -95,6 +95,7 @@ const Auth = () => {
                     placeholder="Enter your name"
                   />
                 </div>
+                {errors.name && <p className="error-text">{errors.name}</p>}
               </div>
             )}
 
@@ -110,6 +111,7 @@ const Auth = () => {
                   placeholder="name@example.com"
                 />
               </div>
+              {errors.email && <p className="error-text">{errors.email}</p>}
             </div>
 
             <div className="form-group">
@@ -131,7 +133,25 @@ const Auth = () => {
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
+              {errors.password && <p className="error-text">{errors.password}</p>}
             </div>
+
+            {!isLogin && (
+              <div className="form-group">
+                <label>Confirm Password</label>
+                <div className="input-wrapper">
+                  <FaLock className="input-icon" />
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    placeholder="••••••••"
+                  />
+                </div>
+                {errors.confirmPassword && <p className="error-text">{errors.confirmPassword}</p>}
+              </div>
+            )}
 
             <button type="submit" className="auth-submit-btn">
               {isLogin ? 'Sign In' : 'Create Account'}

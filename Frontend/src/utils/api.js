@@ -12,12 +12,22 @@ const resolveMediaUrl = (path) => {
   if (!path || typeof path !== "string") {
     return "";
   }
+
+  // Handle absolute URLs that point to localhost (Legacy Fix)
+  if (path.includes("localhost:5000")) {
+    return path.replace(/^https?:\/\/localhost:5000/, API_BASE);
+  }
+
+  // If it's already a full external URL, return as is
   if (path.startsWith("http://") || path.startsWith("https://")) {
     return path;
   }
-  if (path.startsWith("/uploads/")) {
+
+  // Prepend API_BASE to relative paths (e.g. /uploads/...)
+  if (path.startsWith("/")) {
     return `${API_BASE}${path}`;
   }
+
   return path;
 };
 

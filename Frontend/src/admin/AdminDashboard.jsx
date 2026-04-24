@@ -111,10 +111,12 @@ const AdminDashboard = () => {
             </div>
           </div>
           <div className="header-right">
-            <div className="search-bar">
-              <FaSearch className="search-icon" />
-              <input type="text" placeholder="Search…" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-            </div>
+            {activeSection !== 'settings' && (
+              <div className="search-bar">
+                <FaSearch className="search-icon" />
+                <input type="text" placeholder="Search…" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+              </div>
+            )}
           </div>
         </header>
         {renderSection()}

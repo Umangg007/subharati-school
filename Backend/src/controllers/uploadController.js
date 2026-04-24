@@ -8,11 +8,10 @@ const uploadSingle = async (req, res, next) => {
     }
 
     const urlPath = `/uploads/${req.file.filename}`;
-    const publicUrl = new URL(urlPath, env.baseUrl).toString();
 
     return res.status(201).json({
       filename: req.file.filename,
-      url: publicUrl,
+      url: urlPath,
       path: path.resolve(env.uploadDir, req.file.filename)
     });
   } catch (err) {
