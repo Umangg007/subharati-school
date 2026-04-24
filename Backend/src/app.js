@@ -19,31 +19,8 @@ const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
 
-// ─── Rate Limiters ────────────────────────────────────────────────────────────
+// ─── Rate Limiters Removed ──────────────────────────────────────────────────
 
-const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  limit: 300,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, message: "Too many requests — please try again later" }
-});
-
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  limit: 15,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, message: "Too many login attempts — please wait 15 minutes" }
-});
-
-const formLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  limit: 30,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, message: "Too many form submissions — please slow down" }
-});
 
 // ─── Core Middleware ──────────────────────────────────────────────────────────
 
@@ -52,12 +29,8 @@ app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 if (env.nodeEnv !== "test") app.use(morgan("dev"));
 
-// ─── Rate Limiting ────────────────────────────────────────────────────────────
+// ─── Rate Limiting Removed ──────────────────────────────────────────────────
 
-app.use("/api", apiLimiter);
-app.use("/api/auth", authLimiter);
-app.use("/api/enquiries", formLimiter);
-app.use("/api/admissions", formLimiter);
 
 // ─── Static Upload Serving ────────────────────────────────────────────────────
 

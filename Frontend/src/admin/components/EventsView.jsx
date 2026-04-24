@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTrash, FaPlus, FaTimes, FaCalendarAlt, FaUpload, FaSpinner } from 'react-icons/fa';
 import { getEvents, createEvent, deleteEvent, uploadFile } from '../api';
+import { resolveMediaUrl } from '../../utils/api';
 
 // Backend categories from Event model
 const CATEGORIES = ['General', 'Academic', 'Sports', 'Cultural'];
@@ -261,7 +262,7 @@ const EventsView = ({ pageVariants, globalSearch = '' }) => {
                       {uploading ? 'Uploading...' : 'Upload Photo'}
                     </label>
                     {form.imageUrl && (
-                      <img src={form.imageUrl} alt="Preview" style={{ height: '38px', width: '38px', objectFit: 'cover', borderRadius: '0.25rem' }} />
+                      <img src={resolveMediaUrl(form.imageUrl)} alt="Preview" style={{ height: '38px', width: '38px', objectFit: 'cover', borderRadius: '0.25rem' }} />
                     )}
                   </div>
                 </label>

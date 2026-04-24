@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTrash, FaUpload, FaTimes, FaVideo, FaEdit, FaPlay, FaFilter } from 'react-icons/fa';
 import { getVideos, deleteVideo, updateVideo } from '../api';
-import { API_BASE } from '../../utils/api';
+import { API_BASE, resolveMediaUrl } from '../../utils/api';
 
 const VIDEO_CATEGORIES = ['All', 'Infrastructure', 'Campus Tour', 'Facilities', 'Classrooms', 'Labs', 'Play Area', 'Teachers'];
 
@@ -157,7 +157,7 @@ const VideosView = ({ pageVariants, globalSearch = '' }) => {
               <div key={item._id} style={{ position: 'relative', borderRadius: '0.75rem', overflow: 'hidden', background: '#f1f5f9', border: '2px solid #e2e8f0', boxShadow: '0 2px 6px rgba(0,0,0,.06)', transition: 'border-color .2s, box-shadow .2s' }}>
                 {/* Video Thumbnail */}
                 <div style={{ position: 'relative', aspectRatio: '16/9', background: '#0f172a', cursor: 'pointer' }} onClick={() => setPlayingVideo(item)}>
-                  <img src={item.thumbnailUrl || item.url.replace(/\.[^/.]+$/, '.jpg')} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={e => { e.target.style.display = 'none'; }} />
+                  <img src={resolveMediaUrl(item.thumbnailUrl || item.url.replace(/\.[^/.]+$/, '.jpg'))} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={e => { e.target.style.display = 'none'; }} />
                   <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.3)' }}>
                     <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(255,255,255,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.3)' }}>
                       <FaPlay style={{ color: '#7c3aed', fontSize: '1.5rem', marginLeft: '4px' }} />

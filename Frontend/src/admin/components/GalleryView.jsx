@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTrash, FaUpload, FaTimes, FaImages, FaEdit, FaCheck, FaFilter, FaLayerGroup } from 'react-icons/fa';
 import { getGallery, createGallery, deleteGallery, updateGallery, bulkDeleteGallery } from '../api';
-import { API_BASE } from '../../utils/api';
+import { API_BASE, resolveMediaUrl } from '../../utils/api';
 
 const SECTIONS = ['Pre-primary', 'Primary'];
 const CATEGORIES = ['Uncategorized', 'Festival', 'Sports', 'Annual Function', 'Campus', 'Happy faces'];
@@ -129,7 +129,7 @@ const GalleryView = ({ pageVariants, globalSearch = '' }) => {
   const openEdit = (item) => { setEditItem(item); setEditForm({ title: item.title || item.caption || '', description: item.description || '', category: item.category || 'Uncategorized', section: item.section || 'Primary' }); };
   const submitEdit = (e) => { e.preventDefault(); editMut.mutate({ id: editItem._id, ...editForm }); };
 
-  const resolveImg = (item) => item.imageUrl || item.url || item.resolvedImageUrl || '';
+  const resolveImg = (item) => resolveMediaUrl(item.imageUrl || item.url || item.resolvedImageUrl || '');
 
   /* ── status badge ── */
   const statusBadge = { pending: '#94a3b8', uploading: '#3b82f6', done: '#16a34a', error: '#dc2626' };
