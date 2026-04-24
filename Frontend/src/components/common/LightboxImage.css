@@ -1,0 +1,24 @@
+.lightbox-image-trigger {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.lightbox-image-trigger:hover {
+  transform: scale(1.02);
+  filter: brightness(1.05);
+}
+
+/* Add subtle glow effect on hover */
+.lightbox-image-trigger:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* For images that shouldn't have lightbox */
+.lightbox-image-trigger.no-lightbox {
+  cursor: default !important;
+}
+
+.lightbox-image-trigger.no-lightbox:hover {
+  transform: none;
+  filter: none;
+  box-shadow: none;
+}

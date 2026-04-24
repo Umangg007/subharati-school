@@ -1,0 +1,45 @@
+.announcement-bar {
+  background: var(--brand-navy);
+  color: white;
+  padding: 10px 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.5px;
+}
+
+.announcement-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 5%;
+  gap: 20px;
+}
+
+.announcement-tag {
+  background: var(--brand-accent);
+  color: var(--brand-primary);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+marquee {
+  width: 100%;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .announcement-bar {
+    font-size: 0.75rem;
+  }
+}
+

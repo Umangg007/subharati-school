@@ -1,0 +1,135 @@
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 67, 58, 0.5);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.popup-content {
+  background: white;
+  width: min(100%, 520px);
+  max-width: 520px;
+  max-height: 92vh;
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-soft);
+}
+
+.popup-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--surface-1);
+  border: 1px solid var(--border-soft);
+  color: var(--brand-primary);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: var(--transition-smooth);
+}
+
+.popup-close:hover {
+  background: var(--brand-primary);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.popup-body {
+  padding: 14px 16px 18px;
+  text-align: center;
+}
+
+.popup-badge {
+  background: var(--brand-accent-soft);
+  color: var(--brand-accent);
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.64rem;
+  font-weight: 800;
+  display: inline-block;
+  margin: 10px 0 8px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.popup-body h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  color: var(--brand-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+}
+
+.popup-body p {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
+
+.popup-image {
+  width: 100%;
+  margin-bottom: 8px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.popup-image img {
+  width: 100%;
+  height: auto;
+  max-height: 46vh;
+  object-fit: cover;
+  display: block;
+}
+
+.popup-cta {
+  background: var(--brand-primary);
+  color: white;
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 800;
+  display: inline-block;
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-premium);
+  font-size: 0.92rem;
+}
+
+.popup-cta:hover {
+  background: var(--brand-accent);
+  color: var(--brand-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(191, 149, 63, 0.2);
+}
+
+@media (max-width: 768px) {
+  .popup-content {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .popup-body {
+    padding: 12px 12px 14px;
+  }
+
+  .popup-image img {
+    max-height: 36vh;
+    object-fit: contain;
+    background: white;
+  }
+}
+
