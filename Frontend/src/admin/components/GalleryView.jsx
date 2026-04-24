@@ -5,7 +5,7 @@ import { FaTrash, FaUpload, FaTimes, FaImages, FaEdit, FaCheck, FaFilter, FaLaye
 import { getGallery, createGallery, deleteGallery, updateGallery, bulkDeleteGallery } from '../api';
 import { API_BASE } from '../../utils/api';
 
-const SECTIONS   = ['Pre-primary', 'Primary'];
+const SECTIONS = ['Pre-primary', 'Primary'];
 const CATEGORIES = ['Uncategorized', 'Festival', 'Sports', 'Annual Function', 'Campus', 'Happy faces'];
 
 const uploadImage = async (file) => {
@@ -28,8 +28,8 @@ const GalleryView = ({ pageVariants, globalSearch = '' }) => {
   const qc = useQueryClient();
 
   /* ── filter state ── */
-  const [filterCat, setFilterCat]       = useState('All');
-  const [filterSec, setFilterSec]       = useState('All');
+  const [filterCat, setFilterCat] = useState('All');
+  const [filterSec, setFilterSec] = useState('All');
   const [filterSearch, setFilterSearch] = useState('');
   // Debounced search — only fire the query after 400 ms of inactivity
   const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -45,9 +45,9 @@ const GalleryView = ({ pageVariants, globalSearch = '' }) => {
   const [selected, setSelected] = useState(new Set());
 
   /* ── upload modal state ── */
-  const [uploadOpen, setUploadOpen]   = useState(false);
+  const [uploadOpen, setUploadOpen] = useState(false);
   const [uploadFiles, setUploadFiles] = useState([]);
-  const [uploading, setUploading]     = useState(false);
+  const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef();
 
   /* ── edit modal state ── */
@@ -71,19 +71,19 @@ const GalleryView = ({ pageVariants, globalSearch = '' }) => {
     qc.invalidateQueries({ queryKey: ['adminStats'] });
   };
 
-  const delMut    = useMutation({ mutationFn: deleteGallery,    onSuccess: invalidate });
-  const editMut   = useMutation({ mutationFn: updateGallery,    onSuccess: () => { invalidate(); setEditItem(null); } });
-  const bulkMut   = useMutation({ mutationFn: bulkDeleteGallery, onSuccess: () => { invalidate(); setSelected(new Set()); } });
-  const createMut = useMutation({ mutationFn: createGallery,    onSuccess: invalidate });
+  const delMut = useMutation({ mutationFn: deleteGallery, onSuccess: invalidate });
+  const editMut = useMutation({ mutationFn: updateGallery, onSuccess: () => { invalidate(); setEditItem(null); } });
+  const bulkMut = useMutation({ mutationFn: bulkDeleteGallery, onSuccess: () => { invalidate(); setSelected(new Set()); } });
+  const createMut = useMutation({ mutationFn: createGallery, onSuccess: invalidate });
 
   // All items come pre-filtered from the server
   const shown = data?.data ?? [];
   const total = data?.pagination?.total ?? shown.length;
 
   /* ── selection helpers ── */
-  const toggle     = (id) => setSelected(s => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
-  const selectAll  = () => setSelected(new Set(shown.map(i => i._id)));
-  const clearSel   = () => setSelected(new Set());
+  const toggle = (id) => setSelected(s => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
+  const selectAll = () => setSelected(new Set(shown.map(i => i._id)));
+  const clearSel = () => setSelected(new Set());
   const allChecked = shown.length > 0 && shown.every(i => selected.has(i._id));
 
   /* ── bulk upload helpers ── */
@@ -98,7 +98,7 @@ const GalleryView = ({ pageVariants, globalSearch = '' }) => {
 
   const removeQueued = (idx) => setUploadFiles(prev => prev.filter((_, i) => i !== idx));
   const updateQueued = (idx, field, val) => setUploadFiles(prev => prev.map((f, i) => i === idx ? { ...f, [field]: val } : f));
-  
+
   // Apply category/section to all pending items
   const applyToAll = (field, val) => {
     setUploadFiles(prev => prev.map(f => f.status === 'pending' ? { ...f, [field]: val } : f));
@@ -184,7 +184,7 @@ const GalleryView = ({ pageVariants, globalSearch = '' }) => {
       {/* ── Grid ── */}
       <div style={{ padding: '1.25rem' }}>
         {isLoading && <p style={{ textAlign: 'center', color: '#64748b', padding: '2rem' }}>Loading gallery…</p>}
-        {error    && <p style={{ textAlign: 'center', color: '#dc2626', padding: '2rem' }}>Error: {error.message}</p>}
+        {error && <p style={{ textAlign: 'center', color: '#dc2626', padding: '2rem' }}>Error: {error.message}</p>}
         {!isLoading && !error && shown.length === 0 && (
           <p style={{ textAlign: 'center', color: '#94a3b8', padding: '3rem' }}>No items match your filters.</p>
         )}
@@ -194,7 +194,7 @@ const GalleryView = ({ pageVariants, globalSearch = '' }) => {
               const isSelected = selected.has(item._id);
               return (
                 <div key={item._id} style={{ position: 'relative', borderRadius: '0.75rem', overflow: 'hidden', aspectRatio: '1', background: '#f1f5f9', border: `2px solid ${isSelected ? '#7c3aed' : '#e2e8f0'}`, boxShadow: isSelected ? '0 0 0 3px rgba(124,58,237,0.2)' : '0 2px 6px rgba(0,0,0,.06)', transition: 'border-color .2s, box-shadow .2s' }}>
-                  <img src={resolveImg(item)} alt={item.title || 'Gallery'} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={e => { e.target.style.display='none'; }} />
+                  <img src={resolveImg(item)} alt={item.title || 'Gallery'} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={e => { e.target.style.display = 'none'; }} />
 
                   {/* Checkbox top-left */}
                   <div onClick={() => toggle(item._id)} style={{ position: 'absolute', top: '0.5rem', left: '0.5rem', width: '22px', height: '22px', borderRadius: '5px', background: isSelected ? '#7c3aed' : 'rgba(255,255,255,0.9)', border: `2px solid ${isSelected ? '#7c3aed' : '#cbd5e1'}`, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all .15s', zIndex: 10 }}>
@@ -257,44 +257,44 @@ const GalleryView = ({ pageVariants, globalSearch = '' }) => {
               <div className="table-responsive" style={{ flex: 1, overflowY: 'auto', padding: '0 1.25rem' }}>
                 <div style={{ minWidth: '600px' }}>
                   {uploadFiles.length > 0 && (
-                  <div style={{ padding: '0.75rem 0', borderBottom: '1px solid #f1f5f9', display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap', background: '#fafafa', margin: '0 -1.25rem', paddingLeft: '1.25rem', paddingRight: '1.25rem', marginLeft: '-1.25rem', marginRight: '-1.25rem' }}>
-                    <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569' }}>Apply to all:</span>
-                    <select onChange={e => applyToAll('category', e.target.value)} defaultValue="" style={{ ...inp, fontSize: '0.75rem', width: '120px' }}>
-                      <option value="" disabled>Category</option>
-                      {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-                    </select>
-                    <select onChange={e => applyToAll('section', e.target.value)} defaultValue="" style={{ ...inp, fontSize: '0.75rem', width: '120px' }}>
-                      <option value="" disabled>Section</option>
-                      {SECTIONS.map(s => <option key={s} value={s}>{s}</option>)}
-                    </select>
-                  </div>
-                )}
-                {uploadFiles.length === 0 && (
-                  <p style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.875rem', padding: '1rem 0' }}>No images added yet.</p>
-                )}
-                {uploadFiles.map((entry, idx) => (
-                  <div key={idx} style={{ display: 'grid', gridTemplateColumns: '52px 1fr 130px 130px 36px', gap: '0.5rem', alignItems: 'center', padding: '0.5rem 0', borderBottom: '1px solid #f1f5f9' }}>
-                    {/* Preview */}
-                    <img src={entry.preview} alt="" style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '0.4rem', border: '1px solid #e2e8f0' }} />
-                    {/* Title */}
-                    <input value={entry.title} onChange={e => updateQueued(idx, 'title', e.target.value)}
-                      placeholder="Title" style={{ ...inp, fontSize: '0.8rem' }} disabled={entry.status !== 'pending'} />
-                    {/* Category */}
-                    <select value={entry.category} onChange={e => updateQueued(idx, 'category', e.target.value)} style={{ ...inp, fontSize: '0.8rem' }} disabled={entry.status !== 'pending'}>
-                      {CATEGORIES.map(c => <option key={c}>{c}</option>)}
-                    </select>
-                    {/* Section */}
-                    <select value={entry.section} onChange={e => updateQueued(idx, 'section', e.target.value)} style={{ ...inp, fontSize: '0.8rem' }} disabled={entry.status !== 'pending'}>
-                      {SECTIONS.map(s => <option key={s}>{s}</option>)}
-                    </select>
-                    {/* Status / remove */}
-                    {entry.status === 'pending' ? (
-                      <button onClick={() => removeQueued(idx)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '1rem' }}><FaTimes /></button>
-                    ) : (
-                      <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: statusBadge[entry.status], display: 'inline-block', margin: '0 auto' }} title={entry.status} />
-                    )}
-                  </div>
-                ))}
+                    <div style={{ padding: '0.75rem 0', borderBottom: '1px solid #f1f5f9', display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap', background: '#fafafa', margin: '0 -1.25rem', paddingLeft: '1.25rem', paddingRight: '1.25rem', marginLeft: '-1.25rem', marginRight: '-1.25rem' }}>
+                      <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569' }}>Apply to all:</span>
+                      <select onChange={e => applyToAll('category', e.target.value)} defaultValue="" style={{ ...inp, fontSize: '0.75rem', width: '120px' }}>
+                        <option value="" disabled>Category</option>
+                        {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                      <select onChange={e => applyToAll('section', e.target.value)} defaultValue="" style={{ ...inp, fontSize: '0.75rem', width: '120px' }}>
+                        <option value="" disabled>Section</option>
+                        {SECTIONS.map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+                  )}
+                  {uploadFiles.length === 0 && (
+                    <p style={{ textAlign: 'center', color: '#94a3b8', fontSize: '0.875rem', padding: '1rem 0' }}>No images added yet.</p>
+                  )}
+                  {uploadFiles.map((entry, idx) => (
+                    <div key={idx} style={{ display: 'grid', gridTemplateColumns: '52px 1fr 130px 130px 36px', gap: '0.5rem', alignItems: 'center', padding: '0.5rem 0', borderBottom: '1px solid #f1f5f9' }}>
+                      {/* Preview */}
+                      <img src={entry.preview} alt="" style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '0.4rem', border: '1px solid #e2e8f0' }} />
+                      {/* Title */}
+                      <input value={entry.title} onChange={e => updateQueued(idx, 'title', e.target.value)}
+                        placeholder="Title" style={{ ...inp, fontSize: '0.8rem' }} disabled={entry.status !== 'pending'} />
+                      {/* Category */}
+                      <select value={entry.category} onChange={e => updateQueued(idx, 'category', e.target.value)} style={{ ...inp, fontSize: '0.8rem' }} disabled={entry.status !== 'pending'}>
+                        {CATEGORIES.map(c => <option key={c}>{c}</option>)}
+                      </select>
+                      {/* Section */}
+                      <select value={entry.section} onChange={e => updateQueued(idx, 'section', e.target.value)} style={{ ...inp, fontSize: '0.8rem' }} disabled={entry.status !== 'pending'}>
+                        {SECTIONS.map(s => <option key={s}>{s}</option>)}
+                      </select>
+                      {/* Status / remove */}
+                      {entry.status === 'pending' ? (
+                        <button onClick={() => removeQueued(idx)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '1rem' }}><FaTimes /></button>
+                      ) : (
+                        <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: statusBadge[entry.status], display: 'inline-block', margin: '0 auto' }} title={entry.status} />
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
 

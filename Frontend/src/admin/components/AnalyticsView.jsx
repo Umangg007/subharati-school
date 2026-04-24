@@ -38,7 +38,7 @@ const AnalyticsView = ({ pageVariants }) => {
   });
 
   if (isLoading) return <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>Loading analytics…</div>;
-  if (isError)   return <div style={{ padding: '3rem', textAlign: 'center', color: '#dc2626' }}>Failed to load data</div>;
+  if (isError) return <div style={{ padding: '3rem', textAlign: 'center', color: '#dc2626' }}>Failed to load data</div>;
 
   const stats = data?.data ?? {};
   const monthlyData = stats.monthlyTrends || [];

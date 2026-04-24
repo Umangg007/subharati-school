@@ -324,7 +324,7 @@ async function uploadVideo(file, metadata) {
   formData.append('title', metadata.title);
   formData.append('description', metadata.description);
   formData.append('category', metadata.category);
-  
+
   const res = await fetch(`${API_BASE}/api/videos`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` },

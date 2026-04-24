@@ -66,6 +66,16 @@
   color: #4c1d95;
 }
 
+.logo-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: white;
+  padding: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
 .logo-icon {
   font-size: 1.5rem;
   color: #7c3aed;
@@ -168,7 +178,7 @@
   width: 100%;
 }
 
-.sidebar.closed ~ .main-content {
+.sidebar.closed~.main-content {
   margin-left: 80px;
 }
 
@@ -436,6 +446,7 @@
   from {
     transform: scaleY(0);
   }
+
   to {
     transform: scaleY(1);
   }
@@ -591,8 +602,13 @@
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-container p {
@@ -674,7 +690,7 @@
   .sidebar.open {
     width: 240px;
   }
-  
+
   .metrics-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -684,20 +700,20 @@
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .chart-card {
     grid-row: span 1;
   }
-  
+
   .sidebar.open {
     width: 200px;
   }
-  
+
   .main-content {
     margin-left: 200px;
   }
-  
-  .sidebar.closed ~ .main-content {
+
+  .sidebar.closed~.main-content {
     margin-left: 60px;
   }
 }
@@ -706,79 +722,79 @@
   .mobile-menu-toggle {
     display: block;
   }
-  
+
   .sidebar {
     transform: translateX(-100%);
     width: 280px !important;
     z-index: 9999;
   }
-  
+
   .sidebar.open {
     transform: translateX(0);
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
   }
-  
+
   .main-content {
     margin-left: 0 !important;
     padding: 1rem;
   }
-  
+
   .dashboard-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .header-right {
     width: 100%;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
   }
-  
+
   .section-header {
     width: 100%;
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .section-header .search-bar {
     max-width: 100%;
   }
-  
+
   .search-bar input {
     width: 100%;
     max-width: 100%;
   }
-  
+
   .metrics-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .progress-stats {
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }
-  
+
   .activity-list {
     gap: 0.75rem;
   }
-  
+
   .activity-item {
     padding: 0.5rem;
   }
-  
+
   .activity-avatar {
     width: 32px;
     height: 32px;
     font-size: 0.75rem;
   }
-  
+
   .chart-bars {
     gap: 0.5rem;
   }
-  
+
   .chart-bar-container span {
     font-size: 0.625rem;
   }
@@ -788,66 +804,66 @@
   .admin-dashboard {
     padding: 0;
   }
-  
+
   .main-content {
     padding: 0.75rem;
   }
-  
+
   .dashboard-header h1 {
     font-size: 1.5rem;
   }
-  
+
   .header-left p {
     display: none;
   }
-  
+
   .header-right {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
-  
+
   .search-bar {
     order: 1;
     flex: 1;
   }
-  
+
   .notification-btn {
     order: 2;
   }
-  
+
   .metric-card {
     padding: 1rem;
   }
-  
+
   .metric-value {
     font-size: 1.5rem;
   }
-  
+
   .chart-card,
   .progress-card,
   .activity-card {
     padding: 1rem;
   }
-  
+
   .chart-placeholder {
     height: 180px;
   }
-  
+
   .activity-content {
     flex: 1;
     min-width: 0;
   }
-  
+
   .activity-user {
     font-size: 0.8rem;
     font-weight: 600;
   }
-  
+
   .activity-action {
     font-size: 0.75rem;
   }
-  
+
   .activity-time {
     font-size: 0.625rem;
   }
@@ -865,7 +881,7 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 9998;
   }
-  
+
   .sidebar-overlay.active {
     display: block;
   }
@@ -873,19 +889,20 @@
 
 /* Touch-friendly interactions */
 @media (hover: none) and (pointer: coarse) {
+
   .nav-item:hover,
   .logout-btn:hover,
   .metric-card:hover,
   .notification-btn:hover {
     transform: none;
   }
-  
+
   .nav-item:active,
   .logout-btn:active,
   .metric-card:active {
     transform: scale(0.98);
   }
-  
+
   .nav-item {
     min-height: 48px;
     padding: 0.875rem 1.5rem;
@@ -897,17 +914,17 @@
   .admin-dashboard {
     background: #ffffff;
   }
-  
+
   .sidebar {
     background: #ffffff;
     border: 2px solid #000000;
   }
-  
+
   .nav-item.active {
     background: #000000;
     color: #ffffff;
   }
-  
+
   .metric-card {
     border: 2px solid #000000;
   }
@@ -915,6 +932,7 @@
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
+
   .sidebar,
   .nav-item,
   .metric-card,
@@ -923,7 +941,7 @@
     transition: none;
     animation: none;
   }
-  
+
   .motion-div {
     transform: none !important;
   }
@@ -938,6 +956,7 @@
   border: 1px dashed #cbd5e1;
   color: #64748b;
 }
+
 .coming-soon-card h2 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -946,10 +965,11 @@
 }
 
 /* Gallery tile hover overlay */
-.gallery-tile > div:last-child {
+.gallery-tile>div:last-child {
   opacity: 0;
 }
-.gallery-tile:hover > div:last-child {
+
+.gallery-tile:hover>div:last-child {
   opacity: 1;
 }
 
@@ -1191,7 +1211,7 @@
     padding: 1rem;
   }
 
-  .admin-card-header > div:first-child {
+  .admin-card-header>div:first-child {
     text-align: center;
   }
 }
@@ -1327,6 +1347,7 @@
 
 /* Table cell responsive padding */
 @media (max-width: 768px) {
+
   .admin-table th,
   .admin-table td {
     padding: 0.625rem 0.75rem;
@@ -1334,6 +1355,7 @@
 }
 
 @media (max-width: 640px) {
+
   .admin-table th,
   .admin-table td {
     padding: 0.5rem;
@@ -1418,6 +1440,7 @@
 
 /* Touch-friendly tap targets */
 @media (hover: none) and (pointer: coarse) {
+
   .nav-item,
   .action-btn,
   .form-input,

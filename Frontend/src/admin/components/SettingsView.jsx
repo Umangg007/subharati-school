@@ -11,7 +11,7 @@ const SettingsView = ({ pageVariants }) => {
   const handlePassChange = async (e) => {
     e.preventDefault();
     setStatus({ type: '', msg: '' });
-    
+
     if (passForm.newPassword !== passForm.confirmPassword) {
       return setStatus({ type: 'error', msg: 'New passwords do not match' });
     }
@@ -41,15 +41,15 @@ const SettingsView = ({ pageVariants }) => {
           <FaLock style={{ color: '#ef4444' }} />
           <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>Security & Password</h3>
         </div>
-        
+
         <form onSubmit={handlePassChange} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {status.msg && (
-            <div style={{ 
-              padding: '0.75rem 1rem', 
-              borderRadius: '0.5rem', 
-              fontSize: '0.875rem', 
-              display: 'flex', 
-              alignItems: 'center', 
+            <div style={{
+              padding: '0.75rem 1rem',
+              borderRadius: '0.5rem',
+              fontSize: '0.875rem',
+              display: 'flex',
+              alignItems: 'center',
               gap: '0.5rem',
               background: status.type === 'success' ? '#f0fdf4' : '#fef2f2',
               color: status.type === 'success' ? '#15803d' : '#b91c1c',
@@ -63,8 +63,8 @@ const SettingsView = ({ pageVariants }) => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <label style={{ fontSize: '0.875rem', fontWeight: 600, color: '#475569' }}>Current Password</label>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 required
                 value={passForm.currentPassword}
                 onChange={e => setPassForm({ ...passForm, currentPassword: e.target.value })}
@@ -73,8 +73,8 @@ const SettingsView = ({ pageVariants }) => {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <label style={{ fontSize: '0.875rem', fontWeight: 600, color: '#475569' }}>New Password</label>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 required
                 value={passForm.newPassword}
                 onChange={e => setPassForm({ ...passForm, newPassword: e.target.value })}
@@ -83,8 +83,8 @@ const SettingsView = ({ pageVariants }) => {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <label style={{ fontSize: '0.875rem', fontWeight: 600, color: '#475569' }}>Confirm New Password</label>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 required
                 value={passForm.confirmPassword}
                 onChange={e => setPassForm({ ...passForm, confirmPassword: e.target.value })}
@@ -94,16 +94,16 @@ const SettingsView = ({ pageVariants }) => {
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={loading}
-              style={{ 
-                background: '#7c3aed', 
-                color: 'white', 
-                border: 'none', 
-                borderRadius: '0.5rem', 
-                padding: '0.6rem 1.5rem', 
-                fontWeight: 600, 
+              style={{
+                background: '#7c3aed',
+                color: 'white',
+                border: 'none',
+                borderRadius: '0.5rem',
+                padding: '0.6rem 1.5rem',
+                fontWeight: 600,
                 cursor: loading ? 'not-allowed' : 'pointer',
                 opacity: loading ? 0.7 : 1,
                 transition: 'all .2s'

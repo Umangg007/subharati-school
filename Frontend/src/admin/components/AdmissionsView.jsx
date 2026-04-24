@@ -36,16 +36,16 @@ const AdmissionsView = ({ pageVariants, globalSearch = '' }) => {
   });
 
   if (isLoading) return <div className="p-8 text-center" style={{ color: '#64748b' }}>Loading admissions…</div>;
-  if (error)     return <div className="p-8 text-center" style={{ color: '#dc2626' }}>Error: {error.message}</div>;
+  if (error) return <div className="p-8 text-center" style={{ color: '#dc2626' }}>Error: {error.message}</div>;
 
   const all = data?.data ?? [];
   const effectiveSearch = (search.trim() || globalSearch.trim()).toLowerCase();
   const rows = effectiveSearch
     ? all.filter(a =>
-        (a.name || '').toLowerCase().includes(effectiveSearch) ||
-        (a.email || '').toLowerCase().includes(effectiveSearch) ||
-        (a.course || '').toLowerCase().includes(effectiveSearch)
-      )
+      (a.name || '').toLowerCase().includes(effectiveSearch) ||
+      (a.email || '').toLowerCase().includes(effectiveSearch) ||
+      (a.course || '').toLowerCase().includes(effectiveSearch)
+    )
     : all;
 
   return (

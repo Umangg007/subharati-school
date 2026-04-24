@@ -110,6 +110,14 @@ const SplashScreen = ({ onComplete }) => {
                 >
                   PRE PRIMARY SCHOOL
                 </motion.p>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 1.2 }}
+                  className="splash-management"
+                >
+                  (Managed by JL trust)
+                </motion.div>
                 <div className="splash-location">AHMEDABAD</div>
               </div>
             </motion.div>

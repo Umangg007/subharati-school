@@ -63,11 +63,11 @@ const EventsView = ({ pageVariants, globalSearch = '' }) => {
   const effectiveSearch = globalSearch.trim().toLowerCase();
   const visibleEvents = effectiveSearch
     ? events.filter((ev) =>
-        (ev.title || '').toLowerCase().includes(effectiveSearch) ||
-        (ev.description || '').toLowerCase().includes(effectiveSearch) ||
-        (ev.venue || '').toLowerCase().includes(effectiveSearch) ||
-        (ev.category || '').toLowerCase().includes(effectiveSearch)
-      )
+      (ev.title || '').toLowerCase().includes(effectiveSearch) ||
+      (ev.description || '').toLowerCase().includes(effectiveSearch) ||
+      (ev.venue || '').toLowerCase().includes(effectiveSearch) ||
+      (ev.category || '').toLowerCase().includes(effectiveSearch)
+    )
     : events;
 
   const catColor = { General: '#64748b', Academic: '#2563eb', Sports: '#16a34a', Cultural: '#d97706' };
@@ -93,7 +93,7 @@ const EventsView = ({ pageVariants, globalSearch = '' }) => {
       </div>
 
       {isLoading && <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>Loading events…</div>}
-      {error    && <div style={{ padding: '3rem', textAlign: 'center', color: '#dc2626' }}>Error: {error.message}</div>}
+      {error && <div style={{ padding: '3rem', textAlign: 'center', color: '#dc2626' }}>Error: {error.message}</div>}
 
       {!isLoading && !error && (
         <>

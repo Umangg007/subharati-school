@@ -9,9 +9,9 @@ const TAGS = ['General', 'Academic', 'Holiday', 'Exam'];
 
 const NoticesView = ({ pageVariants, globalSearch = '' }) => {
   const queryClient = useQueryClient();
-  const [isOpen, setIsOpen]   = useState(false);
-  const [form, setForm]       = useState({ title: '', description: '', tag: 'General', publishedBy: 'Admin Desk' });
-  const [errors, setErrors]   = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [form, setForm] = useState({ title: '', description: '', tag: 'General', publishedBy: 'Admin Desk' });
+  const [errors, setErrors] = useState([]);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['notices'],
@@ -48,11 +48,11 @@ const NoticesView = ({ pageVariants, globalSearch = '' }) => {
   const effectiveSearch = globalSearch.trim().toLowerCase();
   const visibleNotices = effectiveSearch
     ? notices.filter((n) =>
-        (n.title || '').toLowerCase().includes(effectiveSearch) ||
-        (n.description || '').toLowerCase().includes(effectiveSearch) ||
-        (n.tag || '').toLowerCase().includes(effectiveSearch) ||
-        (n.publishedBy || '').toLowerCase().includes(effectiveSearch)
-      )
+      (n.title || '').toLowerCase().includes(effectiveSearch) ||
+      (n.description || '').toLowerCase().includes(effectiveSearch) ||
+      (n.tag || '').toLowerCase().includes(effectiveSearch) ||
+      (n.publishedBy || '').toLowerCase().includes(effectiveSearch)
+    )
     : notices;
 
   const tagColor = { General: '#64748b', Academic: '#2563eb', Holiday: '#16a34a', Exam: '#d97706' };
@@ -78,7 +78,7 @@ const NoticesView = ({ pageVariants, globalSearch = '' }) => {
       </div>
 
       {isLoading && <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>Loading notices…</div>}
-      {error    && <div style={{ padding: '3rem', textAlign: 'center', color: '#dc2626' }}>Error: {error.message}</div>}
+      {error && <div style={{ padding: '3rem', textAlign: 'center', color: '#dc2626' }}>Error: {error.message}</div>}
 
       {!isLoading && !error && (
         <>

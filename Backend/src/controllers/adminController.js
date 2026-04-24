@@ -29,7 +29,10 @@ const getStats = async (req, res, next) => {
       admissionsByMonth,
       enquiriesByMonth,
       latestAdmissions,
-      latestEnquiries
+      latestEnquiries,
+      admissionsByCourse,
+      admissionsByStatus,
+      galleryByCategory
     ] = await Promise.all([
       Admission.countDocuments(),
       Enquiry.countDocuments(),
@@ -50,7 +53,19 @@ const getStats = async (req, res, next) => {
         { $sort: { "_id.year": 1, "_id.month": 1 } }
       ]),
       Admission.find().sort({ createdAt: -1 }).limit(5).select("name email course createdAt"),
-      Enquiry.find().sort({ createdAt: -1 }).limit(5).select("name email message createdAt")
+      Enquiry.find().sort({ createdAt: -1 }).limit(5).select("name email message createdAt"),
+      // NEW: Granular aggregations
+      Admission.aggregate([
+        { $group: { _id: "$course", count: { $sum: 1 } } },
+        { $sort: { count: -1 } }
+      ]),
+      Admission.aggregate([
+        { $group: { _id: "$status", count: { $sum: 1 } } }
+      ]),
+      Gallery.aggregate([
+        { $group: { _id: "$category", count: { $sum: 1 } } },
+        { $sort: { count: -1 } }
+      ])
     ]);
 
     // Build labelled 6-month series
@@ -71,7 +86,10 @@ const getStats = async (req, res, next) => {
         recent: { recentAdmissions, recentEnquiries },
         monthlyData,
         latestAdmissions,
-        latestEnquiries
+        latestEnquiries,
+        admissionsByCourse,
+        admissionsByStatus,
+        galleryByCategory
       }
     });
   } catch (err) {

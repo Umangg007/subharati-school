@@ -36,15 +36,15 @@ const EnquiriesView = ({ pageVariants, globalSearch = '' }) => {
   });
 
   if (isLoading) return <div style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>Loading enquiries…</div>;
-  if (error)     return <div style={{ padding: '3rem', textAlign: 'center', color: '#dc2626' }}>Error: {error.message}</div>;
+  if (error) return <div style={{ padding: '3rem', textAlign: 'center', color: '#dc2626' }}>Error: {error.message}</div>;
 
   const all = data?.data ?? [];
   const effectiveSearch = (search.trim() || globalSearch.trim()).toLowerCase();
   const rows = effectiveSearch
     ? all.filter(e =>
-        (e.name || '').toLowerCase().includes(effectiveSearch) ||
-        (e.email || '').toLowerCase().includes(effectiveSearch)
-      )
+      (e.name || '').toLowerCase().includes(effectiveSearch) ||
+      (e.email || '').toLowerCase().includes(effectiveSearch)
+    )
     : all;
 
   return (
