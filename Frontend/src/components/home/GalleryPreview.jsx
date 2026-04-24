@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FaArrowRight, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaArrowRight, FaTimes, FaChevronLeft, FaChevronRight, FaPlay } from 'react-icons/fa';
 import { createPortal } from 'react-dom';
 import { AnimatePresence } from 'framer-motion';
 import './GalleryPreview.css';
 import useApi from '../../utils/useApi';
 import { resolveMediaUrl } from '../../utils/api';
+
+const isVideo = (url) => {
+  if (!url) return false;
+  return url.toLowerCase().endsWith('.mp4') || url.includes('/video/upload/');
+};
 
 const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
   const current = images[index];
@@ -26,6 +31,8 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
   }, [onClose, onPrev, onNext]);
 
   if (!current) return null;
+
+  const videoMode = isVideo(current.imageUrl);
 
   return (
     <motion.div
@@ -63,11 +70,20 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
           transition={{ duration: 0.3 }}
           onClick={(e) => e.stopPropagation()}
         >
-          <img
-            src={current.imageUrl}
-            alt={current.title}
-            className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
-          />
+          {videoMode ? (
+            <video
+              src={current.imageUrl}
+              controls
+              autoPlay
+              className="max-w-full max-h-[85vh] rounded-lg shadow-2xl"
+            />
+          ) : (
+            <img
+              src={current.imageUrl}
+              alt={current.title}
+              className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
+            />
+          )}
           <div className="absolute bottom-12 left-1/2 -translate-x-1/2 bg-slate-900/80 backdrop-blur-xl border border-white/10 p-6 rounded-2xl min-w-[320px] text-center">
             <h2 className="text-white font-bold text-xl mb-1">{current.title}</h2>
             <p className="text-slate-400 text-sm max-w-md">{current.category}</p>
@@ -86,12 +102,42 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
 };
 
 const STATIC_PREVIEWS = [
-  { _id: 'sp1', imageUrl: '/images/custom_playgroup.jpg', title: 'Joyful Learning', category: 'Early Years' },
-  { _id: 'sp2', imageUrl: '/images/custom_std_2.jpg', title: 'Artistic Expression', category: 'Primary' },
-  { _id: 'sp3', imageUrl: '/images/custom_std_7.jpg', title: 'Science Exploration', category: 'Middle School' },
-  { _id: 'sp4', imageUrl: '/images/custom_std_higher_new.jpg', title: 'Practical Skills', category: 'Higher Secondary' },
-  { _id: 'sp5', imageUrl: '/images/custom_std_5.jpg', title: 'Creative Activities', category: 'Campus Life' },
-  { _id: 'sp6', imageUrl: '/images/custom_std_2.jpg', title: 'Happy Learning', category: 'Primary' }
+  { 
+    _id: 'sp1', 
+    imageUrl: 'https://res.cloudinary.com/dt6ozngfx/image/upload/v1776876811/subharati/gallery/gallery_1776876805703_IMG_20260318_224308.jpg', 
+    title: 'Joyful Learning', 
+    category: 'Early Years' 
+  },
+  { 
+    _id: 'sp2', 
+    imageUrl: 'https://res.cloudinary.com/dt6ozngfx/image/upload/v1775018347/subharati/class/foundation%20day/1775018337223-Foundation_day%20%281%29.jpg', 
+    title: 'Foundation Day', 
+    category: 'Events' 
+  },
+  { 
+    _id: 'sp3', 
+    imageUrl: 'https://res.cloudinary.com/dt6ozngfx/image/upload/v1776876555/subharati/gallery/gallery_1776876551112_Annual_function_%2827%29.jpg', 
+    title: 'Cultural Fest', 
+    category: 'Annual Function' 
+  },
+  { 
+    _id: 'sp4', 
+    imageUrl: 'https://res.cloudinary.com/dt6ozngfx/image/upload/v1776876539/subharati/gallery/gallery_1776876534407_Annual_function_%2815%29.jpg', 
+    title: 'Grand Celebration', 
+    category: 'Annual Function' 
+  },
+  { 
+    _id: 'sp5', 
+    imageUrl: 'https://res.cloudinary.com/dt6ozngfx/image/upload/v1776857407/subharati/gallery/gallery_1776857404268_Annual_function_%2820%29.jpg', 
+    title: 'Colorful Moments', 
+    category: 'Annual Function' 
+  },
+  { 
+    _id: 'sp6', 
+    imageUrl: 'https://res.cloudinary.com/dt6ozngfx/image/upload/v1776876747/subharati/gallery/gallery_1776876740351_IMG-20260318-WA0127.jpg', 
+    title: 'School Life', 
+    category: 'Campus' 
+  }
 ];
 
 const PREVIEW_COUNT = 6;
@@ -108,14 +154,16 @@ const GalleryPreview = () => {
     category: item.category || 'Gallery'
   })).filter((item) => Boolean(item.imageUrl));
 
-  const previewImages = dbImages.length >= PREVIEW_COUNT
-    ? dbImages.slice(0, PREVIEW_COUNT)
-    : [...dbImages, ...STATIC_PREVIEWS].slice(0, PREVIEW_COUNT);
+  // Prioritize static previews provided by user
+  const previewImages = [
+    ...STATIC_PREVIEWS,
+    ...dbImages.filter(dbImg => !STATIC_PREVIEWS.some(sp => sp.imageUrl === dbImg.imageUrl))
+  ].slice(0, PREVIEW_COUNT);
 
   return (
     <section className="gallery-preview">
       <div className="section-container">
-        <motion.div 
+        <motion.div
           className="section-header"
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -145,24 +193,45 @@ const GalleryPreview = () => {
             </Link>
           </motion.div>
 
-          {previewImages.map((image, index) => (
-            <motion.div
-              key={image._id}
-              className={`preview-card card-${index + 1}`}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-            >
-              <div className="image-wrapper" onClick={() => setLightboxIdx(index)}>
-                <img src={image.imageUrl} alt={image.title} className="preview-img" />
-                <div className="overlay">
-                  <span className="image-category">{image.category}</span>
-                  <h3 className="image-title">{image.title}</h3>
+          {previewImages.map((image, index) => {
+            const videoMode = isVideo(image.imageUrl);
+            return (
+              <motion.div
+                key={image._id}
+                className={`preview-card card-${index + 1}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <div className="image-wrapper" onClick={() => setLightboxIdx(index)}>
+                  {videoMode ? (
+                    <div className="video-preview-container relative w-full h-full">
+                      <video 
+                        src={image.imageUrl} 
+                        className="preview-img object-cover w-full h-full" 
+                        muted 
+                        loop 
+                        autoPlay 
+                        playsInline
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                        <div className="w-12 h-12 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center text-white">
+                          <FaPlay size={20} className="ml-1" />
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <img src={image.imageUrl} alt={image.title} className="preview-img" />
+                  )}
+                  <div className="overlay">
+                    <span className="image-category">{image.category}</span>
+                    <h3 className="image-title">{image.title}</h3>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 

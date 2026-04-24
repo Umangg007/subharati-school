@@ -5,7 +5,7 @@ import { FaTrash, FaUpload, FaTimes, FaVideo, FaEdit, FaPlay, FaFilter } from 'r
 import { getVideos, deleteVideo, updateVideo } from '../api';
 import { API_BASE } from '../../utils/api';
 
-const VIDEO_CATEGORIES = ['All', 'Infrastructure', 'Campus Tour', 'Facilities', 'Classrooms', 'Labs', 'Play Area'];
+const VIDEO_CATEGORIES = ['All', 'Infrastructure', 'Campus Tour', 'Facilities', 'Classrooms', 'Labs', 'Play Area', 'Teachers'];
 
 const formatDuration = (seconds) => {
   if (!seconds) return '0:00';

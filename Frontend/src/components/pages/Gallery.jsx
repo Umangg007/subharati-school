@@ -15,6 +15,7 @@ const CATEGORY_COLORS = {
   'Annual Function': { bg: '#E3F2FD', text: '#0D47A1', dot: '#1976D2' },
   'Campus':          { bg: '#F3E5F5', text: '#4A148C', dot: '#8E24AA' },
   'Happy faces':     { bg: '#FFF8E1', text: '#F57F17', dot: '#FFB300' },
+  'Uncategorized':   { bg: '#F1F5F9', text: '#475569', dot: '#94A3B8' },
 };
 
 // ─── Lightbox (Portal-based, covers everything) ─────────────────────────────

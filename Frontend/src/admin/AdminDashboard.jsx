@@ -143,10 +143,6 @@ const AdminDashboard = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <button className="notification-btn" title="Notifications">
-              <FaBell />
-              <span className="notification-badge">0</span>
-            </button>
           </div>
         </header>
 

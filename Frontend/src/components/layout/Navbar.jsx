@@ -54,7 +54,10 @@ const Navbar = () => {
     };
   }, [menuOpen]);
 
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setAboutMenuOpen(false);
+  };
 
   const handleLogoClick = () => {
     closeMenu();
@@ -130,9 +133,15 @@ const Navbar = () => {
             </NavLink>
           </li>
         ))}
+        {/* Notices Link - Mobile Only */}
+        <li className="mobile-only">
+          <NavLink to="/notices" onClick={closeMenu} className="nav-link-cta">
+            Notices
+          </NavLink>
+        </li>
       </ul>
 
-      {/* Notices — always visible on desktop */}
+      {/* Notices — visible on desktop/tablet, hidden on mobile */}
       <NavLink to="/notices" className="nav-cta-desktop nav-cta-yellow" onClick={closeMenu}>
         Notices
       </NavLink>
